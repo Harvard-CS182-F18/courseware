@@ -1,0 +1,119 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{makecell}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=1cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+\titleformat*{\section}{\large\bfseries}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{color}
+\usepackage{url}
+
+\title{CS 182 Exam 2 - Important Terms and Concepts\vspace{-4ex}}
+%\author{CS 182 - Artificial Intelligence}
+
+\begin{document}
+\maketitle
+
+\begin{multicols*}{2}
+[
+\noindent The terms and concepts below are meant to be a resource for the midterm. They are \textbf{not exhaustive}, and not all topics will necessarily be covered.
+]
+
+\section{Robot Motion Planning}
+end-effector \\
+task space \\
+configuration space \\
+forward kinematics \\
+inverse kinematics \\
+probabilistically complete and optimal \\
+Rapidly-exploring Random Tree (RRT)\\
+Bi-directional RRT\\
+RRT*\\
+Probabilistic Roadmap (PRM) \\
+single-query vs multi-query algorithms \\
+trajectory optimization \\
+global vs local optimum \\
+feasible solution
+
+\section{Hidden Markov Models}
+definition of conditional probability \\
+definition of independence \\
+law of total probability \\
+Bayes' Rule \\
+Markov assumption \\
+Markov model \\
+finite state machine (FSM) \\
+transition probabilities \\
+filtering \\
+forward algorithm \\
+particle filter
+
+\section{Bayes Nets}
+active and inactive paths and triples \\
+D-separation \\
+factor \\
+join and marginalize \\
+enumeration \\
+variable elimination \\
+prior sampling \\
+rejection sampling \\
+likelihood-weighted sampling \\
+
+\vfill\null
+\columnbreak
+
+\section{Machine Learning}
+supervised vs unsupervised \\
+parametric vs non-parametric \\
+Naive Bayes\\
+regression model function: linear, logistic\\
+regression loss function: quadratic, absolute\\
+K Nearest Neighbors (k-NN) \\
+K-Means \\
+sillouette diagrams, error plots \\
+training data \\
+testing data \\
+held-out data \\
+overfitting\\
+smoothing \\
+regularization\\
+hyper-parameters \\
+cross-validation\\
+connectivity-based vs centroid-based clustering\\
+
+\section{Game Theory}
+rational agent\\
+players, actions, utility mapping\\
+normal form\\
+mixed strategy\\
+dominant strategy\\
+Nash equilibrium\\
+
+
+
+
+
+\end{multicols*}
+
+\end{document}

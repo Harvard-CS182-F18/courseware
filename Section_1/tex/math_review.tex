@@ -1,0 +1,227 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage{amsmath,amsfonts,amssymb,bbm}
+\usepackage{palatino}
+\usepackage[linkcolor=blue]{hyperref}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[textsize=tiny]{todonotes}
+\usepackage{multirow}
+
+\newcommand{\TODO}[1]{\todo[inline]{#1}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\mba}{\mathbf{a}}
+\newcommand{\mbb}{\mathbf{b}}
+\newcommand{\mbx}{\mathbf{x}}
+\newcommand{\mbxt}{\tilde{\mathbf{x}}}
+\newcommand{\Sigmat}{\tilde{\Sigma}}
+\newcommand{\mbz}{\mathbf{z}}
+\newcommand{\mbw}{\mathbf{w}}
+\newcommand{\mcN}{\mathcal{N}}
+\newcommand{\mcP}{\mathcal{P}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\trans}{\intercal}
+\newcommand{\Ut}{\tilde{U}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\angstrom}{\textup{\AA}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\mathrm{var}}
+\newcommand{\cov}{\mathrm{cov}}
+\newcommand{\p}{\partial}
+
+\renewcommand{\v}[1]{\boldsymbol{\mathbf{#1}}}
+
+\begin{document}
+
+\begin{center}
+\LARGE{CS 182 Fall 2018 Math Review Notes}
+\end{center}
+
+\section{Probability Review}
+
+A {\bf{random variable}} $X$ is a variable which could take on various values with specified probabilities (its distribution). The possible outcomes of $X$ are described through {\bf{events}}. For instance, an event $A$ could be that $X$ takes on the value $2$, or that $X < 4$. \\
+
+\noindent The probability that $A$ happens is denoted as $P(A)$. For continuous random variables $X$, the probability that $X$ attains some value $x$ is described by a function $p$, called the {\bf{probability density function (PDF)}}. Similarly, for discrete random variables $X$, it is called the {\bf{probability mass function (PMF)}}. We won't be too strict about only writing events as arguments to the probability function $p$; we will use $p(X)$ to mean the distribution of $X$, and $p(x)$ to mean $p(X = x)$. \\
+
+\noindent Events can be constructed from other events. For instance, given two events $A$ and $B$, we may be interested in the event $C = (A \; and \; B)$ or $C = A \cap B$ (the event that both events happen) or the event $D = (A \; or \;  B)$ or $D = A \cup B$ (the event that either of the events happens). \\
+
+\noindent Two events $A$ and $B$ are {\bf{independent}} if the occurence of one does not influence the probability of the other. This can be expressed as $P(A \cap B) = P(A) P(B)$. Similarly, two random variables $X$ and $Y$ are independent if $p(x, y) = p(x)p(y)$.\\
+
+\noindent  The {\bf{expected value}} (or {\bf{expectation, mean}}) $\E[X]$  of a random variable $X$ can be thought of as the ``weighted average'' of the possible outcomes of the random variable. It is often represented by $\mu$. \\
+
+\noindent For discrete random variables:
+\begin{align*}
+  \E[X] &= \sum_{x \in \mathcal{X}} x \cdot p(x) \\
+  \E[f(X)] &= \sum_{x \in \mathcal{X}} f(x) p(x)
+\end{align*}
+For continuous random variables:
+\begin{align*}
+  \E[X] &= \int_{\mathcal{X}} x \cdot p(x) dx \\
+  \E[f(X)] &= \int_{\mathcal{X}} f(x) p(x) dx
+\end{align*}
+
+\bigskip
+
+\noindent One of the important properties of expected values is the \textbf{linearity of expectation}. For any two random variables $X$ and $Y$, scaling coefficients $a$ and $b$, and some constant $c$, the following property of holds:
+$$\E[aX + bY + c] = a\E[X] + b\E[Y] + c$$
+This is easy to show from the definition above, and is true regardless of whether $X$ and $Y$ are dependent or independent. \\
+
+\noindent The {\bf{variance}} of a random variable is its expected squared deviation from its mean:
+$$\var(X) = \E[ (X - \E[X])^2 ] = \E[X^2] - (\E[X])^2$$ 
+
+\noindent The {\bf{standard deviation}} of a random variable is the square root of the variance:
+$$\sigma(X) = \sqrt{\var(X)}$$
+
+\noindent Now consider probability distributions over multiple variables. Let $X$ and $Y$ be two random variables (for instance, each can correspond to the rolls of two regular 6-sided dice). Then, the probability of an event that depends on both $X$ and $Y$ (for example, the event that $X == 1$ and $Y == 2$) will be given by a value in the {\bf{joint probability distribution}} $p(x, y)$. \\
+
+\noindent The {\bf{marginal probability distribution}} is the probability distribution of a subset of variables from a {\bf{joint probability distribution}}. For example, the marginal probability distribution $p(y)$ can be found by summing across all values of $x$ in $p(x, y)$:
+\begin{align*}
+p(x) = \sum_{y \in \mathcal{Y}} p(x, y) \\
+p(x) = \int_{\mathcal{Y}} p(x,y) dy
+\end{align*}
+
+\noindent When we know that an event $B$ has happened, that could influence the probability of another event $A$. The new probability of $A$ given $B$ is the {\bf{conditional probability}} $P(A|B)$. If $B$ changes the distribution of a random variable $X$, we write the new random variable as $X|B$, and the new distribution $P(X|B)$ is the conditional distribution. \\
+
+\noindent The conditional probability can be defined as:
+$$ P(A | B) = \frac{P(A \;\; \text{and} \;\; B)}{P(B)}$$
+
+\noindent Note that this has some direct implications: for instance, if $A$ is the event $X == x$ and $B$ is the event $Y == y$, we have an expression relating distributions (sometimes called the {\bf{product rule}}):
+$$ p(x | y) = \frac{p(x, y)}{p(y)}$$
+which implies that
+$$ p(x, y) = p(x | y) p(y) = p(y | x) p(x)$$
+
+\noindent Remember recursion? If there are more variables in the distribution, the above statement can be recursively extended:
+\begin{align*}
+p(x_1,...,x_n)&= p(x_1|x_2,...,x_n)p(x_2,...,x_n)\\
+&= ... = p(x_1|x_2,...,x_n)...p(x_{n-1}|x_n)p(x_n)
+\end{align*}
+
+\noindent Finally, you may have heard of {\bf{Bayes' Theorem}} (also known as {\bf{Bayes' Rule}} or {\bf{Bayes' Law}}), a very prominent statement that relates conditional probabilities between events. For any two events $A$ and $B$ such that $P(B) > 0$,
+$$ P(A | B) = \frac{P(B | A) P(A)}{P(B)} $$
+As before, if we set events $A$ to be $X == x$ and $B$ to be $Y == y$, we get another common form of Bayes' Law:
+$$ p(x | y) = \frac{p(y | x) p(x)}{p(y)} $$ \\
+In machine learning, we are often looking for parameters $\theta$ based on the distribution of data $y$. Then, we interpret $p(\theta)$ as the {\bf{prior}} (the distribution of $\theta$ without knowing about $y$), $p(y)$ as the {\bf{evidence}} (the overall probability of this data without considering our parameters), $p( y | \theta)$ as the {\bf{likelihood}} (how likely are we to collect this data given the parameters?) and $p( \theta | y)$ as the {\bf{posterior}} (the distribution of $\theta$ after knowing about $y$).
+\begin{align*}
+\underbrace{p(\theta | y)}_{\text{posterior}}
+&= \frac{\overbrace{ p(y | \theta) }^{\text{likelihood}} 
+	\overbrace{ p(\theta) }^{\text{prior}}}
+{\underbrace{p(y)}_{\text{evidence}}}
+\end{align*}
+
+%\begin{align*}
+%p(x | y) &= \frac{p(y | x) p(x)}{p(y)} \\
+%&= \frac{p(y | x) p(x)}{ \int_{\mathcal{X}} p(x,y) dx}
+%\end{align*}
+
+%\noindent Note that $\E[X|Y]$ is a random variable (this is one form of $f(Y)$). Adam's law (law of iterated expectations) gives
+%\begin{align*}
+%\E[X]=\E[\E[X|Y]]
+%\end{align*}
+%There is an analogous property for variances (Eve's Law, or law of total variance)
+%\begin{align*}
+%\var[X] = \E[ \var[X|Y] ] + \var[ \E[X | Y] ]
+%\end{align*}
+
+
+\section{Linear Algebra}
+
+We write a {\bf{vector}} as
+$$  \mathbf{x} = (x_1, \dots, x_D)^\top $$
+where $D$ is the dimension of the vector, and $x_1, \ldots, x_D$ are elements of the vector. We use column vectors by default. \\
+
+\noindent We may commonly write $\mathbf{x} \in \R^D$. The symbol "$\R$" refers to the space of real numbers, "$\R^D$" refers to the D-dimensional space of real numbers, and the symbol "$\in$" means "in", so this is a concise way to say that $x$ is in the D-dimensional space of real numbers. \\
+
+\noindent The size of a vector is measured with the vector norm. Usually, we are referring to the function:
+\[
+||x||_2 = \sqrt{x_1^2 + x_2^2 + \dots + x_D^2}
+\]
+We call this the 2-norm or $\L^2$-norm, and it is actually just one of many $\L^p$ norms. You may also see the 1-norm or the infinity-norm:
+\begin{align*}
+&||x||_1 = |x_1| + |x_2| + \dots |x_D| \\
+&||x||_{\infty} = \max (|x_1|, |x_2|, \dots, |x_D|)
+\end{align*}
+
+\noindent An $n \times m$ {\bf{matrix}} $\mathbf{A}$ has $n$ rows and $m$ columns:
+\[
+\left(\begin{array}{c c c c}
+a_{1, 1} & a_{1, 2} & \dots & a_{1, m} \\
+a_{2, 1} & a_{2, 2} & \dots & a_{2, m} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{n, 1} & a_{n, 2} & \dots & a_{n, m} \\
+\end{array}\right)
+\]
+
+\noindent An $n \times m$ matrix can be thought of as a linear transformation from $\R^n$ to $\R^m$, and, similarly to the vectors, we write $A \in \R^{n \times m}$.
+
+
+\section{Multivariate Calculus}
+%Often we are interested in functions $f: \mathcal{X} \rightarrow \mathcal{Y}$ and their derivatives to fit a model from observations.  The most salient is the objective function
+%\begin{align*}
+%  E_D(\mathbf{w}) &= \sum_{n=1}^N (t_n - \mathbf{w}^\trans \mathbf{x}_n)^2
+%\end{align*}
+%This section will focus on functions from many inputs (e.g. $\mathcal{X} = \R^D$ for some large $D$). We will consider $\mathcal{Y} = \R^M$, but the case of $M=1$ will be the most common and useful.
+
+To review mathematical notation, we may write a function $f$ as
+$$f: \mathcal{X} \in R^n \to \mathcal{Y} \in R^m$$
+This means that the function's {\bf{domain}}, or set of legals inputs, is a set $\mathcal{X}$ of real-valued $n$-dimensional vectors, and the function returns a real-valued $m$-dimensional vector in the output set (or {\bf{range}}) $\mathcal{Y}$. \\
+
+\noindent Recall the rules for {\bf{differentiation}} of a function with respect to one variable:
+\begin{align*}
+\text{Chain rule: } & \frac{d}{d x} f(g(x))= f'(g(x))g'(x)\\
+\text{Product rule: }& \frac{d}{d x} f(x)g(x) = f'(x)g(x) + f(x)g'(x)\\
+\text{Quotient rule: }& \frac{d}{d x} \frac{f(x)}{g(x)} = \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2}
+\end{align*}
+
+\noindent When calculating partial derivatives of a function of multiple variables, we write the {\bf{gradient vector}} as
+\begin{align*}
+  \nabla f(\mathbf{x}) &= \left( \frac{\p f(\mathbf{x})}{\p x_1}, \dots, \frac{\p f(\mathbf{x})}{\p x_D} \right)^\top
+\end{align*}
+Sometimes we only wish to differentiate with respect to some variables in the input. For example, $f(\mathbf{x},\alpha)$, then the derivative with respect to $\mathbf{x}$ is denoted
+\begin{align*}
+  \nabla_{\mathbf{x}} f(\mathbf{x},\alpha) = \frac{d f(\mathbf{x},\alpha)}{d \mathbf{x}} = \left( \frac{\p f(\mathbf{x},\alpha)}{\p x_1}, \dots, \frac{\p f(\mathbf{x},\alpha)}{\p x_D} \right)^\top
+\end{align*}
+The gradient vector points towards the direction of greatest ascent in $f(\mathbf{x})$ with respect to the parameters being differentiated. \\
+
+\noindent If the function we are interested in has multiple outputs (it maps a vector $[x_1, \dots, x_m]$ to a vector $[f_1, \dots, f_n]$), we can generalize the gradient vector to the {\bf{Jacobian matrix}}:
+\begin{align*}
+\frac{d \mathbf{f}(\mathbf{x})}{d \mathbf{x}} = \begin{bmatrix}
+\frac{\p f_1(\mathbf{x})}{\p x_1} & \cdots & \frac{\p f_1(\mathbf{x})}{\p x_m} \\
+\vdots & \ddots & \vdots \\
+\frac{\p f_n(\mathbf{x})}{\p x_1} & \cdots & \frac{\p f_n(\mathbf{x})}{\p x_m}
+\end{bmatrix}
+\end{align*}
+
+\noindent For a function that has a single output $f(\mathbf{x})$, the {\bf{Hessian matrix}} is the generalization of the second derivative:
+\begin{align*}
+H(f(\mathbf{x}))=\begin{bmatrix}
+\frac{\p^2 f(\mathbf{x})}{\p x_1^2} & \frac{\p^2 f(\mathbf{x})}{\p x_1 \p x_2} & \cdots &  \frac{\p^2 f(\mathbf{x})}{\p x_1 \p x_n}\\
+\frac{\p^2 f(\mathbf{x})}{\p x_2 \p x_1} & \frac{\p^2 f(\mathbf{x})}{\p x_2^2} & \cdots & \frac{\p^2 f(\mathbf{x})}{\p x_1 \p x_n}\\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\p^2 f(\mathbf{x})}{\p x_n \p x_1} & \frac{\p^2 f(\mathbf{x})}{\p x_n \p x_2} & \cdots & \frac{\p^2 f(\mathbf{x})}{\p x_n^2}\\
+\end{bmatrix}
+\end{align*}
+
+\noindent To find the local minima (or maxima) of a function $f(\mathbf{x})$, we can set the gradient equal to zero: $\nabla f(\mathbf{x})=0$. However, we may not always be able to find a closed-form solution. {\bf{Gradient descent}} is a numerical way to solve this problem. We start with an initial guess $\mathbf{x}_0$, and iteratively take small steps in the direction of greatest descent until we reach a point where the gradient is close to zero. Since this direction is exactly opposite the direction of the gradient vector, the "update" of our guess at each iteration is
+\begin{align*}
+\mathbf{x}_{i+1} = \mathbf{x}_i - \gamma \nabla f(\mathbf{x}_i)
+\end{align*}
+where $\gamma$ determines our step size. This algorithm forms the basis for much of optimization -- many of the common algorithms used within machine learning and other fields are variants and extensions of gradient descent. \\
+
+%This matrix is symmetric and we can diagonalize it to find its eigenvalues. If all eigenvalues are positive, then we are at a local minimum. If all eigenvalues are negative, then we are at a local maximum. If there is a mix of positive and negative eigenvalues, then we are at a saddle point. If there are zero-eigenvalues, then there are directions in which $f(\mathbf{w})$ has no second order change. Besides allowing us to deduce the nature of turning points, the inverse of the Hessian matrix can also be used to aid gradient descent by using the update rule
+%\begin{align*}
+%\mathbf{x}_{i+1} = \mathbf{x}_i - [H(f(\mathbf{x}))]^{-1} \nabla f(\mathbf{x}_i)
+%\end{align*}
+
+%While we will not dive into optimization in this class, some of these concepts may be mentioned.
+
+
+%A single output function $f(\mathbf{x})$ is convex if it satisfies Jensen's inequality
+%\begin{align*}
+%f\left( \sum_{n=1}^N a_n \mathbf{x}_n\right) \leq  \sum_{n=1}^N a_n f\left( \mathbf{x}_n\right)
+%\end{align*}
+%for all $\mathbf{x}_n\in \mathcal{X}$ and $\sum_{n=1}^N a_n=1$. Similarly, $f(\mathbf{x})$ is concave if the sign of the inequality is flipped. $f(\mathbf{x})$ is called strongly convex/concave if the inequalities are converted to strict inequalities. \\
+%Strongly convex and concave functions have the benefit of having global minimums and maximums respectively, and so are easy to do gradient descent on.
+
+\end{document}

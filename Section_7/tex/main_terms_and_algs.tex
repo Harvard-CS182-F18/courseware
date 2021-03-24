@@ -1,0 +1,137 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{makecell}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=1cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+\usepackage{multicol}
+\usepackage{titlesec}
+
+\titleformat*{\section}{\large\bfseries}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{color}
+\usepackage{url}
+
+\title{CS 182 Exam 1 - Important Terms and Concepts\vspace{-4ex}}
+%\author{CS 182 - Artificial Intelligence}
+
+\begin{document}
+\maketitle
+
+\begin{multicols*}{2}
+[
+\noindent The terms and concepts below are meant to be a resource for the midterm. They are \textbf{not exhaustive}, and not all topics will necessarily be covered.
+]
+\section{Search}
+%General tree search / graph search algorithms:
+%\begin{itemize}
+%\item Breadth-first search (BFS)
+%\item Depth-first search (DFS)
+%\item Depth-first search with iterative deepening (DFS)
+%\item Uniform-cost search (UCS)
+%\item Greedy search
+%\item A-star search
+%\end{itemize}
+State, actions, start state, goal state\\
+Cost/reward model, transition model \\
+Informed and uninformed search \\
+Breadth-first search (BFS) \\
+Depth-first search (DFS)\\
+Depth-first search with iterative deepening (DFS)\\
+Uniform-cost search (UCS)\\
+Greedy search\\
+A-star search\\
+Algorithm fringe/frontier \\
+Algorithm space complexity, time complexity, \\
+corresponding data structures\\
+Tree search vs Graph search\\
+Heuristic function \\
+Admissibility and consistency \\
+Standard search problem vs adversarial search \\
+Deterministic game \\
+Minimax \\
+Expectimax \\
+Alpha-beta pruning
+
+
+\section{Constraint Satisfaction Problems}
+Values, variables, domains, constraints \\
+Constraint graph \\
+Backtracking search \\
+Filtering vs ordering (improvements of backtracking) \\
+Constraint propagation \\
+Forward checking \\
+Arc consistency (and AC-3)\\
+Path consistency \\
+K-consistency \\
+Minimum remaining values heuristic \\
+Least constraining value heuristic \\
+Tree-structured CSP \\
+Cutset conditioning \\
+Iterative min-conflicts
+
+\section{Local Search and Optimization}
+Mathematical optimization algorithms \\
+Convex, concave, non-convex function \\
+Local vs global maxima/minima \\
+Hill climbing \\
+Beam search \\
+Simulated annealing (and temperature) \\
+Genetic/evolutionary algorithms \\
+Gradient descent
+
+
+
+\section{Markov Decision Processes}
+State, actions, start state, terminal states\\
+Cost/reward model, transition model \\
+Markov assumption \\
+Bellman equations/updates \\
+Q-state \\
+Value function (and optimal value function)\\
+Q-value function (and optimal Q-value function) \\
+Policy (and optimal policy)\\
+Discounting and discount rate \\
+Finite vs infinite horizon \\
+Value iteration \\
+Policy evaluation \\
+Policy extraction \\
+Policy iteration \\
+
+\section{Reinforcement Learning}
+Offline vs online planning \\
+MDPs vs RL problem formulation \\
+On-policy vs off-policy \\
+Passive vs active RL \\
+Model-based vs model-free learning \\
+Monte Carlo (Direct Evaluation) \\
+Temporal Difference (TD) Learning \\
+Q-learning \\
+Approximate (feature-based) Q-learning \\
+Learning rate \\
+Exploration vs exploitation \\
+Epsilon-greedy action selection \\
+Exploration function \\
+Regret \\
+
+
+\end{multicols*}
+
+\end{document}
